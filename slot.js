@@ -13,7 +13,7 @@ var data="";
 var BookedDate="";
 var BookedSlot="";
 
-request.open('GET', 'http://10.0.0.5:8080/slots?id=' + window.location.href.substring(window.location.href.indexOf('=')+1) )
+request.open('GET', 'http://10.0.0.7:8080/slots?id=' + window.location.href.substring(window.location.href.indexOf('=')+1) )
 
 request.onload = function () {
   // Begin accessing JSON data here
@@ -309,7 +309,7 @@ request.onload = function () {
 
 			//sending data
 			var http = new XMLHttpRequest()
-			http.open('PUT','http://10.0.0.5:8080/slots/date',true)
+			http.open('PUT','http://10.0.0.7:8080/slots/date',true)
 
 			//{"id":2,"name":"Sobha","degree":"MBBS","type":"Gyno","address":"Indiranagar","review":"One of the best","about":"I worked for helping people","rating":5,"contact":"8105889701","fee":500,"slots":[{"date":"2020-08-17","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-18","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-19","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-20","pm2":"N","pm3":"N","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-21","pm2":"N","pm3":"A","am10":"A","pm4":"N","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-22","pm2":"I","pm3":"I","am10":"A","pm4":"I","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-23","pm2":"I","pm3":"I","am10":"I","pm4":"I","am9":"I","pm12":"I","am11":"I"},{"date":"2020-08-24","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-25","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-26","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-27","pm2":"N","pm3":"N","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-28","pm2":"N","pm3":"A","am10":"A","pm4":"N","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-29","pm2":"I","pm3":"I","am10":"A","pm4":"I","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-30","pm2":"I","pm3":"I","am10":"I","pm4":"I","am9":"I","pm12":"I","am11":"I"},{"date":"2020-08-31","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"}]}
 			//"slots":[{"date":"2020-08-17","pm2":"A"

@@ -7,7 +7,7 @@ app.appendChild(container)
 
 var request = new XMLHttpRequest()
 //request.open('GET', 'https://ghibliapi.herokuapp.com/films', true)
-request.open('GET', 'http://10.0.0.5:8080/doctor')
+request.open('GET', 'http://10.0.0.7:8080/doctor')
 
 request.onload = function () {
   // Begin accessing JSON data here
