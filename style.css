@@ -1,0 +1,175 @@
+.navbar{
+    margin : 2em;
+    color : red;
+    border : solid;
+    line-height: 1.5;
+}
+
+.policy{
+    margin : 2em;
+    border-color : blue;
+    border : solid;
+    line-height: 1.5;
+}
+
+
+
+#root
+{
+ background-image: url("images/bgimg1.jpg");
+     /* Full height */
+  height: 95%; 
+background-size: cover;
+	width: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+
+}
+
+ 
+
+#root2 {
+    background-color: #e6e6e6;
+	background-image: url("images/bgimg1.jpg");
+
+
+
+     /* Full height */
+  	height: 95%; 
+	background-size: cover;
+	width: 100%;
+	}
+  
+  .container {
+    display: flex;
+    //flex-wrap: wrap;
+   
+  }
+
+
+  
+  .button {
+    width: 40%;
+    height: 10%;
+    border: none;
+    background-color: 5B6AA2;
+    margin: 5% 30%;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+  }  
+  
+  .slot {
+    width: 15%;
+    height: 5%;
+    border: none;
+    background-color: 5B6AA2;
+    margin: 1% 1%;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    border-radius: 20px;
+	
+  }    
+
+
+  #app{
+    	font-size: 50px;
+    	margin: 10% 0% 0% 20%;
+	 text-shadow: 3px 3px #5B6AA2;	
+	}
+
+  
+  .card {
+	background-color:5B6AA2;
+    	margin: 8% 10px 0% 20px;
+    	border: 1px solid gray;
+	font-family: "Lucida Console", Courier, monospace;
+	color: white;
+	border-radius: 20px;
+
+  	}
+  
+.card p{
+	margin: 10px;
+	}
+
+.navigate {
+	color: black;
+	font-weight: bold;
+	font-size: 20px;
+	margin: 70px;
+
+	}
+  form{
+    	//margin: 1rem;
+    	border: 1px solid gray;
+	position: absolute;
+	right: 0%;
+  top: 0%;
+  margin: 20px;
+  max-width: 500px;
+  padding: 16px;
+  background-color: white;
+	
+ 
+    	}
+
+input[type=text], input[type=email], input[type=number],input[type=tel], select{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=date]{
+  padding: 5px;
+  //margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+
+
+
+  
+  .card2 {
+      margin: 1rem;
+      width: 15%;
+      font-size: 20px;
+      //font-family: "Lucida Console", Courier, monospace;
+
+  	}
+
+  .card h1{
+      background-color: ;
+	font-weight: bold;
+	text-align: center;
+    }
+  
+  
+  @media screen and (min-width: 600px) {
+    .card {
+      flex: 1 1 calc(50% - 2rem);
+    }
+  }
+  
+  @media screen and (min-width: 900px) {
+    .card {
+      flex: 1 1 calc(33% - 2rem);
+    }
+  }
+
+
+

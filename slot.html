@@ -1,0 +1,83 @@
+<html><!doctype html>
+<html lang="en-US" dir="ltr">
+    <head>
+        <meta charset="UTF-8">
+        <title> Appointment </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="Schedule an Appointment with leading doctor in your area">
+        <link rel="stylesheet" href="style.css">
+        <link rel="icon" href="favicon.ico">
+        <!-- scripts will come here-->
+    </head>
+
+    <body >
+        <div id="root2">
+            <header>
+                <h1> Make An Appointment </h1>
+            </header>
+            <article>
+                <!--<h1 class="page-title" id="pageid" aria-label="selectDoc">
+                    Make An Appointment
+                </h1> -->
+            </article>
+
+
+			<script src="./slot.js"></script>
+
+			<div id =Booking>
+				<div>
+					<label for="BookingDate">Booking Date: </label>
+					<input type= "date" id="bookingDateId" name="BookingDate" value="2020-08-18">
+				</div>
+
+				<div>
+					<button class="slot" id="AM9" value="9:00AM"> 9am-10am </button>
+					<button class="slot" id="AM10" value="10:00AM"> 10am-11am </button>
+					<button class="slot" id="AM11" value="11:00AM"> 11am-12pm </button>
+					<button class="slot" id="PM12" value="12:00PM"> 12pm-1pm </button>
+				</div>
+
+				<div>
+					<button class="slot" id="PM2" value="2:00PM"> 2pm-3pm </button>
+					<button class="slot" id="PM3" value="3:00PM"> 3pm-4pm </button>
+					<button class="slot" id="PM4" value="4:00PM"> 4pm-5pm </button>
+				</div>
+			</div>
+
+
+			<div id=Infomration>
+				<form id="detail">
+					<h3>Fill in Personal Detail:</h3>
+					<label for "patientName"> Name : </label>
+					<input type="text" id= "patientName" name="patientName" placeholder="Mr John" align ="middle"><br>
+					<label for "patientEmail"> Email : </label>
+					<input type="email" id= "patientEmail" name="patientemail" placeholder="hello@world.com"><br>
+					<label for "patientPh"> Phone Number : </label>
+					<input type="tel" id= "patientPh" name="patientPh" placeholder="810-5859-701" pattern="[0-9]{3}-[0-9]{4}-[0-9]{3}" required ><br>
+					<label for "patientAge"> Age(in Years) : </label>
+					<input type="number" id= "patientAge" name="patientAge" min="0" max="150" placeholder="21"><br>
+					<label for "patientGender"> Gender : </label>
+					<select id= "patientGender" name="patientGender">
+						<option value="Male">Male</option>
+						<option value="Female">Female</option>
+						<option value="Others">Others</option>
+					</select><br>
+					<button type="submit" id="bookSlot3" class = "button">Submit</button>
+					<!-- <label for "patientDOB"> Date of Birth : </label>
+					<input type="date" id= "patientDOB" name="patientDOB" max="2020-08-17" placeholder="1987-11-20"><br> -->
+				</form>
+			</div>
+
+
+
+
+
+
+
+		</div>
+        <footer>
+            <a href="./policy.html">Cancellation Privacy</a>
+            <a href="./terms.html">Term of service </a>
+        </footer>
+    </body>
+</html>
