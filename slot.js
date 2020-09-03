@@ -1,34 +1,31 @@
-const app = document.getElementById('root2')
+//Creating container to add doctor info in the html
+const app = document.getElementById('edit')
 const detailForm = document.getElementById("detail")
-
 const container = document.createElement('div')
 container.setAttribute('class', 'container')
-
 app.appendChild(container)
-var index=0;
-var request = new XMLHttpRequest()
-//request.open('GET', 'https://ghibliapi.herokuapp.com/films', true)
 
+//Creating some variables
+var index=0;
 var data="";
 var BookedDate="";
 var BookedSlot="";
 
+//Fire a Rest call to bring the slot information of the doctor based on id.
+var request = new XMLHttpRequest()
 request.open('GET', 'https://10.0.0.7:8080/slots?id=' + window.location.href.substring(window.location.href.indexOf('=')+1) )
-
 request.onload = function () {
-  // Begin accessing JSON data here
   data = JSON.parse(this.response)
   if (request.status >= 200 && request.status < 400) {
-
-		//Hide the booking Form in the html
+		//Hide the booking Form in the html in the beginning
 		var bookingForm= document.getElementById("Booking")
        		 bookingForm.style.display = "none"
 
-		//Hide the Information Form in the html
+		//Hide the Patient Information Form in the html at this point in time
 		var informationForm= document.getElementById("Infomration")
        		 informationForm.style.display = "none"
 
-        console.log(data.name)
+		// Displaying the Doctor information in 3 column format
         const card1 = document.createElement('div')
         card1.setAttribute('class', 'card2')
 
@@ -38,19 +35,13 @@ request.onload = function () {
         const card3 = document.createElement('div')
         card3.setAttribute('class', 'card2')
 
-
         const Avatar = document.createElement('img')
         Avatar.src = "images/avatar.png"
         Avatar.height = "60"
         Avatar.width = "80"
 
-        //alt="stethoscope stethoscope" height = "300" width="400"
-
         const Name = document.createElement('p')
         Name.textContent = "Name :" + data.name
-
-		//const a = document.createElement('a')
-        //h1.textContent = data.name
 
         const Type = document.createElement('p')
         Type.textContent = "Category : " + data.type
@@ -76,10 +67,8 @@ request.onload = function () {
 		const Fee = document.createElement('p')
         Fee.textContent = "Fee : " + data.fee
 
-
 		const About = document.createElement('p')
         About.textContent = "About : " + data.about
-
 
         container.appendChild(card1)
         container.appendChild(card2)
@@ -97,32 +86,30 @@ request.onload = function () {
         card3.appendChild(About)
 
 		const Booking = document.createElement('div')
-		//Booking.setAttribute('class', 'container')
-
 		app.appendChild(Booking)
 
 		const BookSlot = document.createElement('button')
 		BookSlot.setAttribute('class', 'button')
 		BookSlot.setAttribute('id','bookSlot')
         BookSlot.textContent = "Book Slot"
-
         Booking.appendChild(BookSlot)
 
+		//ShowSlot Function will be called onClick of BookSlot which will bring up the Slot information to the end User.
         document.getElementById("bookSlot").addEventListener("click",showSlot);
 
+		//ShowSlot Function will be called change of BookingDate which will refresh the Slot information to the end User.
         document.getElementById("bookingDateId").addEventListener("change",showSlot);
 
         function showSlot(){
-       		 //Enable the booking Form
+       		 //Enable the booking Form in the html
        		 bookingForm.style.display = "block"
 
+			//Creating the next sequencial button
 			var bookSlot = document.getElementById("bookSlot")
 			if(bookSlot)
 			{
 				bookSlot.parentNode.removeChild(bookSlot)
 						const Booking2 = document.createElement('div')
-						//Booking.setAttribute('class', 'container')
-
 						app.appendChild(Booking2)
 
 						const BookSlot2 = document.createElement('button')
@@ -133,12 +120,15 @@ request.onload = function () {
         				Booking2.appendChild(BookSlot2)
 			}
 
+			//Retrieving the index number index for the dateslot to get info of booked/ Available/ Invalid slots
 			BookedDate = document.getElementById("bookingDateId").value
 			index = (Date.parse(BookedDate) - Date.parse(data.slots[0].date) )/(3600000*24)
 
-			//BookedSlot = document.getElementById("AM9").value
+			//Disable the slot based on Days
+			//slots are : "I" - Invalid, "N" - Not avaialble or already booked , A or else - Available
 			//First half - Sunday
 			if(data.slots[index].am9 == 'I')
+			// slot are not present
 			{
 				document.getElementById("AM9").style.display = "none"
        		 	document.getElementById("AM10").style.display = "none"
@@ -146,6 +136,7 @@ request.onload = function () {
        		 	document.getElementById("PM12").style.display = "none"
 		 	}
 		 	else
+		 	//slot are presented to user
 		 	{
 				document.getElementById("AM9").style.display = "inline"
 				document.getElementById("AM10").style.display = "inline"
@@ -155,134 +146,176 @@ request.onload = function () {
 		 	//Ssecond Half - Saturday or Sunday
 			if(data.slots[index].pm2 == 'I')
 			{
+			// slot are not present
 				document.getElementById("PM2").style.display = "none"
 				document.getElementById("PM3").style.display = "none"
 				document.getElementById("PM4").style.display = "none"
 		 	}
 		 	else
+		 	//slot are presented to user
 			{
 				document.getElementById("PM2").style.display = "inline"
 				document.getElementById("PM3").style.display = "inline"
 				document.getElementById("PM4").style.display = "inline"
 		 	}
-		 	//remove this
+
+		 	//remove this - for local testing
 		 	document.getElementById("AM11").disabled = true
 
+			//Need to show the status of slots
+
 		 	if(data.slots[index].am9 == 'N')
+		 	//As the slot is Unavailable then disable the slot button and change the color
 		 	{
 		 		document.getElementById("AM9").disabled = true
-		 		document.getElementById("AM9").style.color = "red"
+		 		document.getElementById("AM9").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
+			//Slot is available then make it so
 		 		document.getElementById("AM9").disabled = false
-		 		document.getElementById("AM9").style.color = "White"
+		 		document.getElementById("AM9").style.backgroundColor = "#5B6AA2"
 			}
 
+			//Need to repeat the same logic for all the slots
 		 	if(data.slots[index].am10 == 'N')
 		 	{
 		 		document.getElementById("AM10").disabled = true
-		 		document.getElementById("AM10").style.color = "red"
+		 		document.getElementById("AM10").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("AM10").disabled = false
-		 		document.getElementById("AM10").style.color = "White"
+		 		document.getElementById("AM10").style.backgroundColor = "#5B6AA2"
 			}
 
 		 	if(data.slots[index].am11 == 'N')
 		 	{
 		 		document.getElementById("AM11").disabled = true
-		 		document.getElementById("AM11").style.color = "red"
+		 		document.getElementById("AM11").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("AM11").disabled = false
-		 		document.getElementById("AM11").style.color = "White"
+		 		document.getElementById("AM11").style.backgroundColor = "#5B6AA2"
 			}
 
 		 	if(data.slots[index].pm12 == 'N')
 		 	{
 		 		document.getElementById("PM12").disabled = true
-		 		document.getElementById("PM12").style.color = "red"
+		 		document.getElementById("PM12").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("PM12").disabled = false
-		 		document.getElementById("PM12").style.color = "White"
+		 		document.getElementById("PM12").style.backgroundColor = "5B6AA2"
 			}
 
 		 	if(data.slots[index].pm2 == 'N')
 		 	{
 		 		document.getElementById("PM2").disabled = true
-		 		document.getElementById("PM2").style.color = "red"
+		 		document.getElementById("PM2").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("PM2").disabled = false
-		 		document.getElementById("PM2").style.color = "White"
+		 		document.getElementById("PM2").style.backgroundColor = "5B6AA2"
 			}
 
 		 	if(data.slots[index].pm3 == 'N')
 			{
 				document.getElementById("PM3").disabled = true
-				document.getElementById("PM3").style.color = "red"
+				document.getElementById("PM3").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("PM3").disabled = false
-		 		document.getElementById("PM3").style.color = "White"
+		 		document.getElementById("PM3").style.backgroundColor = "5B6AA2"
 			}
 
 		 	if(data.slots[index].pm4 == 'N')
 		 	{
 		 		document.getElementById("PM4").disabled = true
-		 		document.getElementById("PM4").style.color = "red"
+		 		document.getElementById("PM4").style.backgroundColor = "#dddddd"
 			}
 		 	else
 		 	{
 		 		document.getElementById("PM4").disabled = false
-		 		document.getElementById("PM4").style.color = "White"
+		 		document.getElementById("PM4").style.backgroundColor = "5B6AA2"
 			}
 
 
-		 		document.getElementById("bookSlot2").addEventListener("click",showInformation);
-		 		document.getElementById("AM9").addEventListener("click",setBookedSlot9);
-		 		document.getElementById("AM10").addEventListener("click",setBookedSlot10);
-		 		document.getElementById("AM11").addEventListener("click",setBookedSlot11);
-		 		document.getElementById("PM12").addEventListener("click",setBookedSlot12);
-		 		document.getElementById("PM2").addEventListener("click",setBookedSlot2);
-		 		document.getElementById("PM3").addEventListener("click",setBookedSlot3);
-		 		document.getElementById("PM4").addEventListener("click",setBookedSlot4);
+			//Next step to show the html on slot booking
+			document.getElementById("bookSlot2").addEventListener("click",showInformation);
+
+			//Event listner on each slot to make it selected
+			document.getElementById("AM9").addEventListener("click",setBookedSlot9);
+			document.getElementById("AM10").addEventListener("click",setBookedSlot10);
+			document.getElementById("AM11").addEventListener("click",setBookedSlot11);
+			document.getElementById("PM12").addEventListener("click",setBookedSlot12);
+			document.getElementById("PM2").addEventListener("click",setBookedSlot2);
+			document.getElementById("PM3").addEventListener("click",setBookedSlot3);
+			document.getElementById("PM4").addEventListener("click",setBookedSlot4);
 
 		}
 
+		//reset selection function to reset the previously selected slot
+		function resetSelection(){
+			document.getElementById("AM9").className = "slot"
+			document.getElementById("AM10").className = "slot"
+			document.getElementById("AM11").className = "slot"
+			document.getElementById("PM12").className = "slot"
+			document.getElementById("PM2").className = "slot"
+			document.getElementById("PM3").className = "slot"
+			document.getElementById("PM4").className = "slot"
+		}
+
+		//On each selection change the class to show, its selected and take the value as BookedSlot
 		function setBookedSlot9(){
+			resetSelection()
 			BookedSlot = document.getElementById("AM9").value
+			document.getElementById("AM9").className = "active"
 		}
 
 		function setBookedSlot10(){
-					BookedSlot = document.getElementById("AM10").value
+			resetSelection()
+			BookedSlot = document.getElementById("AM10").value
+			document.getElementById("AM10").className = "active"
 		}
 
 		function setBookedSlot11(){
-					BookedSlot = document.getElementById("AM11").value
-		}
-		function setBookedSlot12(){
-					BookedSlot = document.getElementById("PM12").value
-		}
-		function setBookedSlot2(){
-					BookedSlot = document.getElementById("PM2").value
-		}
-		function setBookedSlot3(){
-					BookedSlot = document.getElementById("PM3").value
-		}
-		function setBookedSlot4(){
-					BookedSlot = document.getElementById("PM4").value
+			resetSelection()
+			BookedSlot = document.getElementById("AM11").value
+			document.getElementById("AM11").className = "active"
 		}
 
+		function setBookedSlot12(){
+			resetSelection()
+			BookedSlot = document.getElementById("PM12").value
+			document.getElementById("PM12").className = "active"
+		}
+
+		function setBookedSlot2(){
+			resetSelection()
+			BookedSlot = document.getElementById("PM2").value
+			document.getElementById("PM2").className = "active"
+		}
+
+		function setBookedSlot3(){
+					resetSelection()
+					BookedSlot = document.getElementById("PM3").value
+					document.getElementById("PM3").className = "active"
+		}
+
+		function setBookedSlot4(){
+					resetSelection()
+					BookedSlot = document.getElementById("PM4").value
+					document.getElementById("PM4").className = "active"
+		}
+
+		//Display the Patient Information form to the user
 		function showInformation(){
-       	//Enable the booking Form
+       	//Enable the booking Form, As the form structure is already created in html
        	informationForm.style.display = "block"
 
 			var bookSlot2 = document.getElementById("bookSlot2")
@@ -290,35 +323,21 @@ request.onload = function () {
 			{
 				bookSlot2.parentNode.removeChild(bookSlot2)
 						const Information = document.createElement('div')
-						//Booking.setAttribute('class', 'container')
-
-						/*detailForm.appendChild(Information)
-
-						const BookSlot3 = document.createElement('button')
-						BookSlot3.setAttribute('class', 'button')
-						BookSlot3.setAttribute('id','bookSlot3')
-				        BookSlot3.textContent = "Submit"
-
-        				Information.appendChild(BookSlot3)*/
 			}
 			document.getElementById("bookSlot3").addEventListener("click",showThankyou);
 		}
 
+		//Let's show the Confirmation to the Patient
 		function showThankyou(){
-
-
-			//sending data
+			//open the PUT Request
 			var http = new XMLHttpRequest()
 			http.open('PUT','https://10.0.0.7:8080/slots/date',true)
 
-			//{"id":2,"name":"Sobha","degree":"MBBS","type":"Gyno","address":"Indiranagar","review":"One of the best","about":"I worked for helping people","rating":5,"contact":"8105889701","fee":500,"slots":[{"date":"2020-08-17","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-18","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-19","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-20","pm2":"N","pm3":"N","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-21","pm2":"N","pm3":"A","am10":"A","pm4":"N","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-22","pm2":"I","pm3":"I","am10":"A","pm4":"I","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-23","pm2":"I","pm3":"I","am10":"I","pm4":"I","am9":"I","pm12":"I","am11":"I"},{"date":"2020-08-24","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-25","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-26","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-27","pm2":"N","pm3":"N","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-28","pm2":"N","pm3":"A","am10":"A","pm4":"N","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-29","pm2":"I","pm3":"I","am10":"A","pm4":"I","am9":"A","pm12":"A","am11":"A"},{"date":"2020-08-30","pm2":"I","pm3":"I","am10":"I","pm4":"I","am9":"I","pm12":"I","am11":"I"},{"date":"2020-08-31","pm2":"A","pm3":"A","am10":"A","pm4":"A","am9":"A","pm12":"A","am11":"A"}]}
-			//"slots":[{"date":"2020-08-17","pm2":"A"
+			//Format the slot value properly for the REST
 			var formatSlot = BookedSlot.substring(BookedSlot.indexOf('00')+2) + BookedSlot.substring(0,BookedSlot.indexOf(':'))
-			//var params = 'id=' + data.id + '&date=' + BookedDate + '&slot=' + BookedSlot
+			//Creating the Request header with required data format.
+			//JSON can be created but to make it simple passing the request as String
 			var params = 'index=' + index + '&id=' + data.id + '&date=' + BookedDate + '&slot=' + formatSlot
-			//var jsonParams = '{"id":"' + data.id + '","slots":[{"date":"' + BookedDate + '","' + formatSlot + '":"N"}]}'
-
-			//http.setRequestHeader('content-type','application/x-www-form-urlencoded')
 			http.setRequestHeader('content-type','application/json')
 
 			http.onreadystatechange = function(){
@@ -328,7 +347,8 @@ request.onload = function () {
 			}
 			http.send(params)
 
-			//save slot with id,date,slot as "N"
+			//Display the very simple confirmation to the end user.
+			//Can be created a confirmation dialog to enhance the UI
 			alert("Thank you for your booking." + '\n' + '\n' + "Your appointment with DR." + data.name + '\n' + "dated on " + BookedDate + '\n' + "is booked for the slot of " + BookedSlot)
 
 			//redirect to home page
@@ -336,11 +356,6 @@ request.onload = function () {
 			var newLoc = htmlLoc.replace('slot','index')
 			window.location.assign(newLoc)
 		}
-
-
     }
-
-  var date = new Date;
 }
-
 request.send('Santosh Sending from Application')

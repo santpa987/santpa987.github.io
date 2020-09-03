@@ -1,0 +1,172 @@
+/*For policy Page*/
+.policy{
+    margin : 2em;
+    border-color : blue;
+    border : solid;
+    line-height: 1.5;
+}
+
+/*Main root page*/
+#manage{
+  background-image: url("images/bgimg1.jpg");
+  height: 95%; 
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+ 
+/*Booking page*/
+#edit{
+	background-color: #e6e6e6;
+	background-image: url("images/bgimg1.jpg");
+	height: 95%; 
+	background-size: cover;
+	width: 100%;
+}
+
+/*Container for doctors*/
+.container {
+	display: flex;
+  }
+ 
+ /*Regular Buttons*/
+.button {
+	width: 40%;
+	height: 10%;
+	border: none;
+	background-color: 5B6AA2;
+	margin: 5% 30%;
+	font-size: 16px;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	border-radius: 20px;
+}  
+
+/*Booking slot*/
+.slot {
+	width: 15%;
+	height: 5%;
+	border: none;
+	background-color: 5B6AA2;
+	margin: 1% 1%;
+	font-size: 16px;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	border-radius: 20px;
+} 
+
+/*Selected slot*/
+.active {
+	width: 15%;
+	height: 5%;
+	border: none;
+	background-color: purple;
+	margin: 1% 1%;
+	font-size: 16px;
+	cursor: pointer;
+	color: white;
+	font-weight: bold;
+	border-radius: 20px;
+} 
+
+/*highlight while hovering*/
+.slot:hover{
+	background-color: purple;
+	color: white;
+}
+
+/*Shadow effect on Home page*/
+ #app{
+    	font-size: 50px;
+    	margin: 10% 0% 0% 20%;
+	 text-shadow: 3px 3px #5B6AA2;	
+}
+
+/*Individual Card for Each doctor*/
+.card {
+	background-color:5B6AA2;
+    	margin: 8% 10px 0% 20px;
+    	border: 1px solid gray;
+	font-family: "Lucida Console", Courier, monospace;
+	color: white;
+	border-radius: 20px;
+ }
+
+/*margin space inside card*/
+.card p{
+	margin: 10px;
+}
+
+/*Making hyperlink*/
+.navigate {
+	color: black;
+	font-weight: bold;
+	font-size: 20px;
+	margin: 70px;
+}
+
+/*Information form*/
+form{
+    	border: 1px solid gray;
+	position: absolute;
+	right: 0%;
+        top: 0%;
+        margin: 20px;
+  	max-width: 500px;
+        padding: 16px;
+  	background-color: white;
+}
+
+/*Flex Based on media screen*/
+@media screen and (min-width: 600px) {
+    .card {
+      flex: 1 1 calc(50% - 2rem);
+    }
+  }
+
+/*Flex Based on media screen*/
+@media screen and (min-width: 900px) {
+    .card {
+      flex: 1 1 calc(33% - 2rem);
+    }
+  }
+
+/*Formatting the input fields*/
+input[type=text], input[type=email], input[type=number],input[type=tel], select{
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/*Formatting the input fields for date*/
+input[type=date]{
+  padding: 5px;
+  //margin: 5px 0 22px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/*Formatting the input fields while focus*/
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/*Modularizing doctor info in edit page*/
+.card2 {
+      margin: 1rem;
+      width: 15%;
+      font-size: 20px;
+  }
+
+/*Highlight the header of the card*/
+.card h1{
+      background-color: ;
+	font-weight: bold;
+	text-align: center;
+    }  
